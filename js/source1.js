@@ -109,6 +109,7 @@ function loadTexture( path ) {
 		texture.image = this;
 		texture.needsUpdate = true;
 	};
+	image.crossOrigin="anonymous";
 	image.src = path;
 	return material;
 }
@@ -173,11 +174,19 @@ function draw_view_finder(){
 	camera.add( plane );
 }
 
-function draw_play_area() {    
-    var floorTexture = new THREE.ImageUtils.loadTexture( 'texture/grass.png' );
+function draw_play_area() {
+    var floorTexture = new THREE.Texture( texture_placeholder );
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
 	floorTexture.repeat.set( 50, 50 );
-    
+    	
+	var grassImg = new Image()
+	grassImg.onload = function(){
+		floorTexture.image = this;
+		floorTexture.needsUpdate = true;
+	};
+	grassImg.crossOrigin="anonymous";
+	grassImg.src = 'texture/grass.png';
+	
     var floorgeometry = new THREE.PlaneGeometry( side_length, side_length, 50,50);
     var floormaterial = new THREE.MeshBasicMaterial( {map: floorTexture, side: THREE.DoubleSide} );
     var floor = new THREE.Mesh( floorgeometry, floormaterial );
@@ -185,9 +194,17 @@ function draw_play_area() {
     floor.rotation.x = Math.PI / 2;
     scene.add( floor );
     
-    var wallTexture = new THREE.ImageUtils.loadTexture( 'texture/brick2.jpg' );
+    var wallTexture = new THREE.Texture( texture_placeholder );
 	wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping; 
 	wallTexture.repeat.set( 20, 2 );
+    	
+	var brickImg = new Image()
+	brickImg.onload = function(){
+		floorTexture.image = this;
+		floorTexture.needsUpdate = true;
+	};
+	brickImg.crossOrigin="anonymous";
+	brickImg.src = 'texture/brick2.jpg';
     
     var wallgeometry = new THREE.PlaneGeometry( side_length, wall_height, 20,2);
     var wallmaterial = new THREE.MeshBasicMaterial( {map: wallTexture, side: THREE.DoubleSide} );
