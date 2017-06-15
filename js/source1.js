@@ -200,11 +200,11 @@ function draw_play_area() {
     	
 	var brickImg = new Image()
 	brickImg.onload = function(){
-		floorTexture.image = this;
-		floorTexture.needsUpdate = true;
+		wallTexture.image = this;
+		wallTexture.needsUpdate = true;
 	};
 	brickImg.crossOrigin="anonymous";
-	brickImg.src = 'texture/brick2.jpg';
+	brickImg.src = 'texture/brick2.png';
     
     var wallgeometry = new THREE.PlaneGeometry( side_length, wall_height, 20,2);
     var wallmaterial = new THREE.MeshBasicMaterial( {map: wallTexture, side: THREE.DoubleSide} );
