@@ -1,5 +1,9 @@
 define(function(require){
     function ReserControl(control){
+        this.Paused = function(){
+            return !control.enabled;
+        };
+
         var blocker = document.getElementById( 'blocker' );
         var instructions = document.getElementById( 'instructions' );
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;

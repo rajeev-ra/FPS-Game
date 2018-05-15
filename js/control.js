@@ -1,5 +1,5 @@
 define(function(require){
-    var Control = function ( camera ) {
+    var Control = function ( scene, camera ) {
         // local variables
         var scope = this;
         var zoom = false;
@@ -24,7 +24,7 @@ define(function(require){
         pitchObject.add( camera );    
         yawObject.position.y = 10;
         yawObject.add( pitchObject );
-        
+        scene.add(yawObject);
         // public methods
         this.onMouseMove = function ( event ) {
             if ( scope.enabled === false ) return;

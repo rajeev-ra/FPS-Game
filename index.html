@@ -1,5 +1,5 @@
 <html>
-<title>TEST</title>
+<title>FPS Game</title>
 <script src="js/three.min.js"></script>
 <!--<script src="js/control.js"></script>
 <script src="js/source1.js"></script>-->
@@ -17,18 +17,56 @@
 			}
 
 			#blocker {
-
+				display: none;
 				position: absolute;
 
 				width: 100%;
 				height: 100%;
 
 				background-color: rgba(0,0,0,0.5);
+			}
 
+			#loader {
+				position: absolute;
+
+				width: 100%;
+				height: 100%;
+
+				background-color: rgba(0,0,0,0.5);
+			}
+
+			#loader-wheel{
+				margin: 0;
+				padding: 0;
+  				position: absolute;
+				left: calc(50% - 76px);
+				top: calc(50% - 86px);
+				border: 16px solid #f3f3f3;
+				border-radius: 50%;
+				border-top: 16px solid #3498db;
+				width: 120px;
+				height: 120px;
+				-webkit-animation: spin 2s linear infinite; /* Safari */
+				animation: spin 2s linear infinite;
+			}
+			
+			#loader-msg{
+				color: #ffffff;
+				text-align: center;
+				font-size:40px;
+			}
+			/* Safari */
+			@-webkit-keyframes spin {
+				0% { -webkit-transform: rotate(0deg); }
+				100% { -webkit-transform: rotate(360deg); }
+			}
+
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
 			}
 
 			#instructions {
-
 				width: 100%;
 				height: 100%;
 
@@ -52,10 +90,13 @@
 				text-align: center;
 
 				cursor: pointer;
-
 			}
 </style>
 <body>
+	<div id="loader">
+		<div id="loader-wheel"></div>
+		<div id="loader-msg">Loading...</div>
+	</div>
     <div id="blocker">
 		<div id="instructions">
 			<span style="font-size:40px">Click to play</span>
@@ -63,6 +104,6 @@
 			(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
 		</div>
 	</div>
-	<script data-main="js/main" src="js/require.js"></script>
+	<script data-main="js/dist/main" src="js/require.js"></script>
 </body>
 </html>
