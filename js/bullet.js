@@ -33,6 +33,10 @@ define(["CollisionMgr"], function(CollisionMgr){
             scene.remove(mesh);
         };
 
+        document.addEventListener( 'resetgame', function(){
+            _this.Remove();
+        }, false );
+
         function update(){
             var time = performance.now();
             if(control.enabled){

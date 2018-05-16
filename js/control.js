@@ -25,6 +25,25 @@ define(function(require){
         yawObject.position.y = 10;
         yawObject.add( pitchObject );
         scene.add(yawObject);
+
+        
+        document.addEventListener( 'resetgame', function(){
+            zoom = false;
+            prevTime = performance.now();
+            velocity.set(0,0,0);
+            pitchObject.rotation.set(0,0,0);
+            yawObject.position.set(0,10,0);
+            yawObject.rotation.set(0,0,0);
+
+            moveForward = false;
+            moveBackward = false;
+            moveLeft = false;
+            moveRight = false;
+            canJump = false;
+            down = false;
+        }, false );
+
+
         // public methods
         this.onMouseMove = function ( event ) {
             if ( scope.enabled === false ) return;

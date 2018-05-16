@@ -4,8 +4,10 @@ define(function(require){
             return !control.enabled;
         };
 
+        var resetRequired = false;
         var blocker = document.getElementById( 'blocker' );
         var instructions = document.getElementById( 'instructions' );
+        var gameoverspan = document.getElementById( 'gameover' );
         var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
         if ( havePointerLock ) {
@@ -14,6 +16,12 @@ define(function(require){
                 if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
                     control.enabled = true;
                     blocker.style.display = 'none';
+                    gameoverspan.style.opacity = "0";
+                    if(resetRequired){
+                        resetRequired = false;                        
+                        var resetevent = new Event('resetgame');
+                        document.dispatchEvent(resetevent);
+                    }
                 } else {
                     control.enabled = false;
                     blocker.style.display = '-webkit-box';
@@ -27,6 +35,16 @@ define(function(require){
                 instructions.style.display = '';
             };
 
+            var gameover = function(){    
+                resetRequired = true;            
+                gameoverspan.style.opacity = "1";
+                
+                document.exitPointerLock = document.exitPointerLock    ||
+                           document.mozExitPointerLock;
+                // Attempt to unlock
+                document.exitPointerLock();
+            };
+
             // Hook pointer lock state change events
             document.addEventListener( 'pointerlockchange', pointerlockchange, false );
             document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
@@ -35,6 +53,8 @@ define(function(require){
             document.addEventListener( 'pointerlockerror', pointerlockerror, false );
             document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
             document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
+
+            document.addEventListener( 'gameover', gameover, false );
 
             instructions.addEventListener( 'click', onClick, false );
             
@@ -63,6 +83,14 @@ define(function(require){
         } else {
             instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
         }
+        
+
+        this.Reset = function(){
+            gameoverspan.style.opacity = "1";
+            if(pointerlockchange){
+                pointerlockchange();
+            }
+        };
     }
 
     return ReserControl;

@@ -122,12 +122,21 @@ define(["CollisionMgr", "Bullet"], function(CollisionMgr, Bullet){
                 if(power < 1){
                     power = 0;
                     power_mesh.geometry = new THREE.Geometry();
+                    var event = new Event('gameover');
+                    document.dispatchEvent(event);
                 }
                 else{
                     power_mesh.geometry = power_geoms[power];
                 }
             }
         };
+
+        
+        document.addEventListener( 'resetgame', function(){
+            power = 100;
+            dv = 0.1;
+            power_mesh.geometry = power_geoms[power];
+        }, false );
     };
 
     return Player;

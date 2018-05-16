@@ -68,6 +68,12 @@ define(["CollisionMgr", "Bullet"], function(CollisionMgr, Bullet){
 
         var _this = this;
 
+        document.addEventListener( 'resetgame', function(){
+            active = false;
+            CollisionMgr.remove(_this);
+            scene.remove(_this.target_mesh);
+        }, false );
+
         this.hit = function(){
             power -= data.power_subs;
             if(power > 0){
@@ -96,8 +102,9 @@ define(["CollisionMgr", "Bullet"], function(CollisionMgr, Bullet){
                     setTimeout(lookat, 1000);
                 }
             }
-            else{
-                //alert("Game Over");
+            else{                
+                var event = new Event('resetgame');
+                document.dispatchEvent(event);
             }
         }
 
